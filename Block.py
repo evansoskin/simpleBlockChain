@@ -12,7 +12,7 @@ class Block:
         self.nonce = 0
 
     def calculateHash(self):
-        return sha256((self.previousHash + self.timestamp + str(self.transactions) + str(self.nonce)).encode("utf-16")).hexdigest()
+        return sha256((self.previousHash + self.timestamp + str(self.transactions) + str(self.nonce)).encode("utf-8")).hexdigest()
 
     def mineBlock(self, difficulty):
         difficulty_str = "0" * difficulty
