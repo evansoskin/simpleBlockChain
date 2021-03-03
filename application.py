@@ -3,8 +3,12 @@ from Block import Block
 from BlockChain import BlockChain
 from Transaction import Transaction
 from ecdsa import SigningKey, VerifyingKey, SECP256k1
+from flask import Flask
 
-# Main
+
+app = Flask(__name__)
+
+@app.route('/')
 def main():
 
     # create private key
@@ -35,4 +39,4 @@ def main():
     #print(BC.getAddressBalance("miner"))
     print(BC.isChainValid())
 
-main()
+    return "True"
