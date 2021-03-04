@@ -4,19 +4,21 @@ from Transaction import Transaction
 
 
 # BlockChain Class
-class BlockChain:
+class Blockchain:
     def __init__(self):
         self.chain = []
-        self.pendingTransactions = []
-        self.chain.append(self.createGenesisBlock())
         self.difficulty = 2
         self.miningReward = 100
+        self.pendingTransactions = []
+        self.chain.append(self.createGenesisBlock())
 
     def createGenesisBlock(self):
         genesisTransactions = []
         genesisTransactions.append(Transaction(None, None, 0))
         genesisTransactions.append(Transaction(None, None, 0))
-        return Block(getCurrentDateTime(), genesisTransactions, 0)
+        gb = Block(getCurrentDateTime(), genesisTransactions)
+        gb.mineBlock(self.difficulty)
+        return gb
 
     def getLatestBlock(self):
         return self.chain[len(self.chain) - 1]

@@ -4,7 +4,7 @@ from ecdsa import SigningKey, VerifyingKey, SECP256k1
 from hashlib import sha256
 
 # create private key
-sk = SigningKey.generate(curve=SECP256k1) # uses NIST192p
+sk = SigningKey.generate(curve=SECP256k1)
 print("sk str: ",sk.to_string().hex())
 
 # create public key

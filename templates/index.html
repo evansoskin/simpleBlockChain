@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h1>Blocks on chain</h1>
+        <p>Cards represent blocks on the blockchain with their transactions.</p>
+        {% for block in BCI.getBlocks() %}
+            <div class="card" [class.border-primary]="isSelectedBlock()">
+                <div class="card-body">
+                    <h5 class="card-title">Block
+                        {% if block.previousHash == 0 %}
+                            <small class="text-muted">(Genesis block)</small>
+                        {% endif %}
+                    </h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <span class="">Hash</span>
+                        <br>
+                        <div class="text-truncate" [style.color]="'#'" + {{ block.Hash }}
+                            <small>{{ block.hash }}</small>
+                        </div>
+            
+                        <br>
+                        <span class="">Hash of previous block</span>
+                        <br>
+            
+                        <div class="text-truncate" [style.color]="'#'" + {{ block.previousHash }}>
+                            <small>{{ block.previousHash }}</small>
+                        </div>
+                    </li>
+            
+                    <li class="list-group-item">
+                        <span class="">Nonce</span><br>
+                        <div class="text-truncate text-muted">
+                            <small>{{ block.nonce }}</small>
+                        </div>
+                    </li>
+            
+                    <li class="list-group-item">
+                        <span class="">Timestamp</span><br>
+                        <div class="text-truncate text-muted">
+                            <small>{{ block.timestamp }}</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
