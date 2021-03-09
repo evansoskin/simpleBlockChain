@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+<div class="container">
+{% if block == None %}
+    <p>This block has no transactions</p>
+{% else%}
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Valid?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tx in block.transactions %}
+                <tr>
+                    <td>{{ loop.index0 }}</td>
+                    <td class="text-truncate" style="max-width: 100px;">
+
+                        {% if tx.fromAddress != None %}
+                            {{ tx.fromAddress }}
+                        {% else %}
+                            <span>System</span>
+                        {% endif %}
+
+                        <!--<span class="text-muted" *ngIf="blockchainService.addressIsFromCurrentUser(tx.fromAddress)">
+                        <br><small>(That's yours!)</small>
+                        </span>-->
+                    </td>
+                    <td class="text-truncate" style="max-width: 100px;">
+                        {{ tx.toAddress }}<br>
+                        <!--<span class="text-muted" *ngIf="blockchainService.addressIsFromCurrentUser(tx.toAddress)">
+                            <br><small>(That's yours!)</small>
+                        </span>-->
+                    </td>
+                    <td>
+                        {{ tx.amount }}
+                        {% if tx.fromAddress == None %}
+                            <span class="text-muted"><br><small>(Block reward)</small></span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ tx.timestamp }}
+                    </td>
+                    <td style="max-width: 40px;">
+                        {% if tx.isValid() == True %}
+                            <span>✓</span>
+                        {% else %}
+                            <span>✗</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+</div>

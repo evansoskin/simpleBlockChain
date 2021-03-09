@@ -9,10 +9,10 @@
         <h1>Blocks on chain</h1>
         <p>Cards represent blocks on the blockchain with their transactions.</p>
         {% for block in BCI.getBlocks() %}
-            <div class="card" [class.border-primary]="isSelectedBlock()">
+            <div class="card" href="{{ url_for('getTransactions', hash=block.hash) }}" type="submit" method="get">
                 <div class="card-body">
-                    <h5 class="card-title">Block
-                        {% if block.previousHash == 0 %}
+                    <h5 class="card-title">Block {{ loop.index }}
+                        {% if block.previousHash == "0" %}
                             <small class="text-muted">(Genesis block)</small>
                         {% endif %}
                     </h5>
@@ -21,7 +21,7 @@
                     <li class="list-group-item">
                         <span class="">Hash</span>
                         <br>
-                        <div class="text-truncate" [style.color]="'#'" + {{ block.Hash }}
+                        <div class="text-truncate">
                             <small>{{ block.hash }}</small>
                         </div>
             
@@ -29,13 +29,14 @@
                         <span class="">Hash of previous block</span>
                         <br>
             
-                        <div class="text-truncate" [style.color]="'#'" + {{ block.previousHash }}>
+                        <div class="text-truncate">
                             <small>{{ block.previousHash }}</small>
                         </div>
                     </li>
             
                     <li class="list-group-item">
-                        <span class="">Nonce</span><br>
+                        <span class="">Nonce</span>
+                        <br>
                         <div class="text-truncate text-muted">
                             <small>{{ block.nonce }}</small>
                         </div>
@@ -50,5 +51,11 @@
                 </ul>
             </div>
         {% endfor %}
+        <script>
+            $("div.card").hover(
+                function(){$(this).addClass("border-primary")},
+                function(){$(this).removeClass("border-primary")}
+            );
+        </script>
     </div>
 {% endblock %}

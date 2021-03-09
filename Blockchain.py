@@ -16,7 +16,7 @@ class Blockchain:
         genesisTransactions = []
         genesisTransactions.append(Transaction(None, None, 0))
         genesisTransactions.append(Transaction(None, None, 0))
-        gb = Block(getCurrentDateTime(), genesisTransactions)
+        gb = Block(getCurrentDateTime(), genesisTransactions, "0")
         gb.mineBlock(self.difficulty)
         return gb
 
@@ -25,7 +25,7 @@ class Blockchain:
 
     def minePendingTransactions(self, miningRewardAddress):
         self.addTransaction(Transaction(None, miningRewardAddress, self.miningReward))
-        newBlock = Block(getCurrentDateTime(), self.pendingTransactions[:])
+        newBlock = Block(getCurrentDateTime(), self.pendingTransactions[:], self.getLatestBlock().hash)
         newBlock.mineBlock(self.difficulty)
 
         print("Block Successfully mined")
@@ -77,10 +77,3 @@ class Blockchain:
                 return False
 
         return True
-
-    """
-    def printBlockTransactions(self):
-        for block in self.chain:
-            for trans in block.transactions:
-                trans.printTransaction()
-    """

@@ -20,3 +20,9 @@ class BlockchainService:
 
     def getBlocks(self):
         return self.blockchainInstance.chain
+
+    def getBlockByHash(self, hashOfBlock):
+        for block in self.blockchainInstance.chain:
+            if block.hash == hashOfBlock:
+                return self.blockchainInstance.chain['block']
+        return None
