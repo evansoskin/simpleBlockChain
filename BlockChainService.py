@@ -1,15 +1,15 @@
 from Blockchain import Blockchain
-from ecdsa import SigningKey, SECP256k1
+from ecdsa import SigningKey, VerifyingKey, SECP256k1
 
 class BlockchainService:
     blockchainInstance = Blockchain()
     walletKeys = {}
 
     def __init__(self):
-        self.blockchainInstance.difficulty = 2
-        self.blockchainInstance.minePendingTransactions("myWalletAddress")
-        
         self.generateWalletKeys()
+        self.blockchainInstance.difficulty = 2
+        self.blockchainInstance.miningReward = 100
+        self.blockchainInstance.minePendingTransactions(VerifyingKey.from_string( bytearray.fromhex( self.walletKeys["publicKey"] ), curve=SECP256k1 ) )
 
     def generateWalletKeys(self):
         sk = SigningKey.generate(curve=SECP256k1)
@@ -22,7 +22,7 @@ class BlockchainService:
         return self.blockchainInstance.chain
 
     def getBlockByHash(self, hashOfBlock):
-        for block in self.blockchainInstance.chain:
+        for idx, block in enumerate(self.blockchainInstance.chain):
             if block.hash == hashOfBlock:
-                return self.blockchainInstance.chain['block']
+                return self.blockchainInstance.chain[idx]
         return None

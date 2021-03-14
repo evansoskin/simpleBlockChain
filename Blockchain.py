@@ -14,8 +14,7 @@ class Blockchain:
 
     def createGenesisBlock(self):
         genesisTransactions = []
-        genesisTransactions.append(Transaction(None, None, 0))
-        genesisTransactions.append(Transaction(None, None, 0))
+        genesisTransactions.append(Transaction())
         gb = Block(getCurrentDateTime(), genesisTransactions, "0")
         gb.mineBlock(self.difficulty)
         return gb

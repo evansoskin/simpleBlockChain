@@ -2,10 +2,11 @@
 
 {% block main%}
 <div class="container">
-{% if block.transactions == [] %}
-    <p>This block has no transactions</p>
-{% else%}
-    <table class="table table-hover table-striped">
+
+	<h1>Pending transactions</h1>
+	<p>These transactions are waiting to be included in the next block. Next block is created when you start the mining process.</p>
+
+	<table class="table table-hover table-striped">
         <thead>
             <tr>
             <th scope="col">#</th>
@@ -17,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for tx in block.transactions %}
+            {% for tx in pendingTransactions %}
                 <tr>
                     <td>{{ loop.index0 }}</td>
                     <td class="text-truncate" style="max-width: 100px;">
@@ -50,6 +51,12 @@
             {% endfor %}
         </tbody>
     </table>
-{% endif %}
+
+    <br>
+    <form action="/transactions/pending" method="post">
+        <button class="btn btn-primary" type="submit" >
+            Start mining
+        </button>
+    </form>
 </div>
 {% endblock %}

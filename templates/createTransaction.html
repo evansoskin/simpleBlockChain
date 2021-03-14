@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block main%}
+<div class="container">
+	<h1>Create transaction</h1>
+	<p>Transfer some money to someone!</p>
+
+	<br>
+    <form action="/transactions/create" method="post">
+        <div class="form-group">
+            <label for="fromAddress">From address</label>
+            <input type="text" class="form-control" name="fromAddress" value='{{ BCI.walletKeys["publicKey"] }}' readonly
+            <small id="fromAddressHelp" class="form-text text-muted">
+                This is your wallet address. You cannot change it because you can only spend your own coins.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="toAddress">To address</label>
+            <input type="text" class="form-control" name="toAddress">
+            <small id="toAddressHelp" class="form-text text-muted">
+                The address of the wallet where you want to send the money to.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" min="1" name="amount">
+            <small id="amountHelp" class="form-text text-muted">
+                You can transfer any amount. Account balance is not checked.
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign & create transaction</button>
+    </form>
+</div>
+{% endblock %}

@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container">
+    <div class="container" style="overflow-x: scroll;white-space: nowrap;">
         <h1>Blocks on chain</h1>
         <p>Cards represent blocks on the blockchain with their transactions.</p>
         {% for block in BCI.getBlocks() %}
-            <div class="card" href="{{ url_for('getTransactions', hash=block.hash) }}" type="submit" method="get">
+            <a href="{{ url_for('getTransactions', hash=block.hash) }}">
+            <div class="card" type="submit">
                 <div class="card-body">
                     <h5 class="card-title">Block {{ loop.index }}
                         {% if block.previousHash == "0" %}
@@ -50,6 +51,7 @@
                     </li>
                 </ul>
             </div>
+        </a>
         {% endfor %}
         <script>
             $("div.card").hover(

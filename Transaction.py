@@ -26,8 +26,9 @@ class Transaction:
         return sha256(self.fromAddress.to_string() + self.toAddress.to_string() + bytearray(str(self.amount), "utf-8") + bytearray(self.timestamp, "utf-8")).hexdigest()
 
     def signTransaction(self, signingKey):
+
         if  signingKey.verifying_key != self.fromAddress:
-            print("You cannot sign transactions for other walletsn")
+            print("You cannot sign transactions for other wallets")
             exit()
 
         hashTrans = bytearray.fromhex(self.calculateHash())
