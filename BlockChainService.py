@@ -9,7 +9,7 @@ class BlockchainService:
         self.generateWalletKeys()
         self.blockchainInstance.difficulty = 2
         self.blockchainInstance.miningReward = 100
-        self.blockchainInstance.minePendingTransactions(VerifyingKey.from_string( bytearray.fromhex( self.walletKeys["publicKey"] ), curve=SECP256k1 ) )
+        self.blockchainInstance.minePendingTransactions(self.walletKeys["publicKey"])
 
     def generateWalletKeys(self):
         sk = SigningKey.generate(curve=SECP256k1)

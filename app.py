@@ -43,12 +43,12 @@ def settings():
 def createTransaction():
 
     if request.method == "POST":
-        fromAddress = VerifyingKey.from_string( bytearray.fromhex( BCI.walletKeys["publicKey"] ), curve=SECP256k1 )
-        toAddress = VerifyingKey.from_string( bytearray.fromhex( request.form.get("toAddress") ), curve=SECP256k1 ) 
+        fromAddress = BCI.walletKeys["publicKey"]
+        toAddress = request.form.get("toAddress")
         amount = request.form.get("amount")
-
+        
         tx = Transaction(fromAddress, toAddress, amount)
-        tx.signTransaction( SigningKey.from_string(bytearray.fromhex(BCI.walletKeys["privateKey"]), curve=SECP256k1) )
+        tx.signTransaction( BCI.walletKeys["privateKey"] )
         BCI.blockchainInstance.addTransaction(tx)
 
         return redirect("/transactions/pending")
@@ -59,7 +59,7 @@ def createTransaction():
 def getPendingTransactions():
 
     if request.method == "POST":
-        BCI.blockchainInstance.minePendingTransactions(VerifyingKey.from_string( bytearray.fromhex( BCI.walletKeys["publicKey"] ), curve=SECP256k1 ) )
+        BCI.blockchainInstance.minePendingTransactions(BCI.walletKeys["publicKey"])
 
         return redirect("/")
     else:
